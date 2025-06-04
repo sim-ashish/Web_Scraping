@@ -1,0 +1,23 @@
+pip install selenium
+
+- you also need to install driver for chrome browser or firefox etc which ever you want to use
+- Let suppose we want to go further with firefox (GeckoDriver)
+
+sudo apt update
+sudo apt install firefox -y
+sudo apt install firefox-geckodriver -y 
+
+- path -> /usr/bin/geckodriver 
+
+# Manually download
+# Download the latest release (check GitHub for newer if needed)
+wget https://github.com/mozilla/geckodriver/releases/download/v0.34.0/geckodriver-v0.34.0-linux64.tar.gz
+
+# Extract the file
+tar -xvzf geckodriver-v0.34.0-linux64.tar.gz
+
+# Move it to /usr/local/bin
+sudo mv geckodriver /usr/local/bin/
+
+# Set executable permission (if needed)
+sudo chmod +x /usr/local/bin/geckodriver

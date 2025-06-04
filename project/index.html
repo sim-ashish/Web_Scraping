@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Search Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    #search-input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+      border: 2px solid #888;
+      border-radius: 4px;
+    }
+    #results {
+      list-style-type: none;
+      padding: 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+    #results li {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    #results li:hover {
+      background-color: #f0f0f0;
+    }
+    #results li:last-child {
+      border-bottom: none;
+    }
+    .no-results {
+      padding: 10px;
+      color: #888;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Search Demo</h1>
+  <input type="text" id="search-input" placeholder="Type to search..." autocomplete="off" />
+  <ul id="results"></ul>
+
+  <script>
+    // Stored data array
+    const data = [
+      "Apple",
+      "Banana",
+      "Orange",
+      "Pineapple",
+      "Mango",
+      "Strawberry",
+      "Blueberry",
+      "Watermelon",
+      "Peach",
+      "Cherry",
+      "Grapes",
+      "Lemon",
+      "Lime",
+      "Kiwi",
+      "Coconut",
+      "Papaya",
+      "Avocado",
+      "Blackberry",
+      "Raspberry"
+    ];
+
+    const searchInput = document.getElementById('search-input');
+    const resultsContainer = document.getElementById('results');
+
+    // Function to render results
+    function renderResults(filteredData) {
+      resultsContainer.innerHTML = '';
+
+      if (filteredData.length === 0) {
+        resultsContainer.innerHTML = '<li class="no-results">No results found</li>';
+        return;
+      }
+
+      filteredData.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        resultsContainer.appendChild(li);
+      });
+    }
+
+    // Handle input event to filter results
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.trim().toLowerCase();
+
+      if (!query) {
+        resultsContainer.innerHTML = '';
+        return;
+      }
+
+      // Filter data array for matching items
+      const filtered = data.filter(item => item.toLowerCase().includes(query));
+      renderResults(filtered);
+    });
+  </script>
+
+</body>
+</html>

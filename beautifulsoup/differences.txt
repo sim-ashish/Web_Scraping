@@ -1,0 +1,64 @@
+######## .contents vs .children #######
+# .contents :
+
+Returns a list of a tag's children.
+All the children are loaded into memory immediately.
+Can be accessed using indexing and supports standard list operations.
+
+# .children :
+Returns a generator (iterator) of a tag’s children.
+More memory-efficient, especially for large documents.
+You must iterate over it (e.g., using for child in tag.children).
+
+
+###### .string vs .get_text() vs .text ######
+# .string :
+
+Returns the string inside a tag, but only if that tag has exactly one child and that child is a NavigableString.
+Returns None if the tag has nested tags or multiple strings.
+
+# .get_text() :
+
+Returns all the text content of the tag and its descendants as a single string.
+You can specify a separator and whether to strip whitespace.
+
+html = "<p>Hello <b>World</b></p>"
+soup = BeautifulSoup(html, "html.parser")
+print(soup.p.get_text())                 # "Hello World"
+print(soup.p.get_text(separator="|"))   # "Hello |World"
+print(soup.p.get_text(strip=True))      # "HelloWorld"
+
+
+# .text :
+
+It’s a shortcut for .get_text().
+So tag.text == tag.get_text().
+
+
+###### .next_sibling vs .next_element ######
+
+# .next_sibling :
+
+Moves to the next sibling node at the same tree level (i.e., the next tag or string that shares the same parent).
+Skips over children or descendants.
+Returns None if there is no next sibling.
+
+# .next_element :
+
+Moves to the next element in the document, regardless of tree level.
+It walks through all descendants and siblings recursively (depth-first traversal).
+Always returns the next item in the HTML document order.
+Can be a tag, string, or any element.
+
+---------- example -----------------------------------------------------
+
+html = "<div><p>One<b>Bold</b>Text</p><p>Two</p></div>"
+soup = BeautifulSoup(html, "html.parser")
+
+p = soup.p
+print(p.next_sibling)        # <p>Two</p>
+print(p.next_element)        # 'One' (the text inside the first <p>)
+print(p.next_element.next_element)  # <b>Bold</b>
+
+------------------------------------------------------------------------
+
